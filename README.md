@@ -32,6 +32,9 @@ require "base_conversions"
 
 BaseConversions.base16_to_base32("4f03826b01c6e28d824")
 #=> "KR3G9NG3HQ2HP14"
+
+BaseConversions.base32_to_base16("KR3G9NG3HQ2HP14")
+#=> "4f03826b01c6e28d824"
 ```
 
 [1]:	https://en.wikipedia.org/wiki/Hexadecimal
