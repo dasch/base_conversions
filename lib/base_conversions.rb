@@ -1,6 +1,6 @@
 require "base32/crockford"
 
-module Conversions
+module BaseConversions
   extend self
 
   def base16_to_base32(input)

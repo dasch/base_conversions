@@ -2,10 +2,10 @@ require 'rantly'
 require 'rantly/rspec_extensions'
 require 'rantly/shrinks'
 
-require_relative "../lib/conversions"
+require_relative "../lib/base_conversions"
 
-RSpec.describe Conversions do
-  include Conversions
+RSpec.describe BaseConversions do
+  include BaseConversions
 
   it "converts back and forth between base 16 and 32" do
     property_of { i = integer; guard i >= 0; i }.check {|i|
