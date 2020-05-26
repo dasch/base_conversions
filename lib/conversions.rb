@@ -13,9 +13,7 @@ module Conversions
 
   def base32_to_base16(input)
     blocks_of_size(input, 4).
-      map {|base32| Base32::Crockford.decode(base32) }.
-      map {|n| n.to_s(16) }.
-      map {|s| s.rjust(5, "0") }.
+      map {|block| convert_block_32_to_16(block) }.
       reverse.
       join.
       gsub(/^0+(.)/, '\1') # strip leading zeros
@@ -40,9 +38,17 @@ module Conversions
       map {|slice| slice.reverse.join }
   end
 
+  # Converts a base16 string "block" to a base32 string.
   def convert_block_16_to_32(block)
     n = block.hex # convert the base16 string to an integer.
     base32 = Base32::Crockford.encode(n) # convert the integer to base32.
     base32.rjust(4, "0") # pad with leading zeros.
+  end
+
+  # Converts a base32 string "block" to a base16 string.
+  def convert_block_32_to_16(block)
+    n = Base32::Crockford.decode(block) # convert the base32 string to an integer.
+    base16 = n.to_s(16) # convert the integer to base16.
+    base16.rjust(5, "0") # pad with leading zeros.
   end
 end
