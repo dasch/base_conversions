@@ -17,11 +17,14 @@ module BaseConversions
   # size starting *from the right*. That means that the return value will
   # be an Array of String values representing the blocks, in reverse order.
   #
-  # Examples
+  # For example, with a block size of 3:
   #
-  #   blocks_of_size("ABCDEFG", 3)
-  #   #=> ["EFG", "BCD", "A"]
+  #   "ABCDEFG" => ["EFG", "BCD", "A"]
   #
+  # The method then yields each block, and stiches the results back together,
+  # correcting the order between blocks.
+  #
+  # Returns a String.
   def in_blocks_of_size(input, block_size)
     input.
       chars.
