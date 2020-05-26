@@ -28,9 +28,9 @@ In practice, we first reverse the string, then chop off fixed-sized blocks, then
 ## Usage
 
 ```ruby
-require "baseconvert"
+require "base_conversions"
 
-BaseConvert.base16_to_base32("4f03826b01c6e28d824")
+BaseConversions.base16_to_base32("4f03826b01c6e28d824")
 #=> "KR3G9NG3HQ2HP14"
 ```
 
