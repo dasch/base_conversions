@@ -4,19 +4,11 @@ module BaseConversions
   extend self
 
   def base16_to_base32(input)
-    blocks_of_size(input, 5).
-      map {|block| convert_block_16_to_32(block) }.
-      reverse.
-      join.
-      gsub(/^0+(.)/, '\1') # strip leading zeros
+    in_blocks_of_size(input, 5) {|block| convert_block_16_to_32(block) }
   end
 
   def base32_to_base16(input)
-    blocks_of_size(input, 4).
-      map {|block| convert_block_32_to_16(block) }.
-      reverse.
-      join.
-      gsub(/^0+(.)/, '\1') # strip leading zeros
+    in_blocks_of_size(input, 4) {|block| convert_block_32_to_16(block) }
   end
 
   private
@@ -30,12 +22,15 @@ module BaseConversions
   #   blocks_of_size("ABCDEFG", 3)
   #   #=> ["EFG", "BCD", "A"]
   #
-  def blocks_of_size(input, block_size)
+  def in_blocks_of_size(input, block_size)
     input.
       chars.
       reverse.
       each_slice(block_size).
-      map {|slice| slice.reverse.join }
+      map {|slice| yield slice.reverse.join }.
+      reverse.
+      join.
+      gsub(/^0+(.)/, '\1') # strip leading zeros
   end
 
   # Converts a base16 string "block" to a base32 string.
