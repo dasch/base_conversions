@@ -6,7 +6,9 @@ When dealing with very large integers, it may not be possible to transmit them a
 
 This project shows how to _map_ from one such encoding to another. Specifically, it shows how to map between base16 (also known as _hexadecimal_) and base32 (specifically, the Crockford specification).
 
-Since the whole point of encoding to strings is that the integers may be too large to represent as native integers in a programming language, how can this be done then? Well, we can use the fact that 5 characters of base16 can be represented with exactly 4 characters of base32. When converting from base16 to base32, we divide the input string into blocks of 5 characters, starting from the right, for example:
+Since the whole point of encoding to strings is that the integers may be too large to represent as native integers in a programming language, how can this be done then? Well, we can use the fact that 5 characters of base16 can be represented with exactly 4 characters of base32. That is, `16^5 == 32^4`.
+
+When converting from base16 to base32, we divide the input string into blocks of 5 characters, starting from the right, for example:
 
 ```
 4f03 826b0 1c6e2 8d824
